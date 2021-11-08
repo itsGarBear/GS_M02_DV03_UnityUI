@@ -38,9 +38,9 @@ public class CameraMoveScript : MonoBehaviour
     void GetNewPosition()
     {
         var xPos = Random.Range(min.x, max.x);
-        var zPos = Random.Range(min.y, max.y);
+        var yPos = Random.Range(min.y, max.y);
 
         //_newRotation = Quaternion.Euler(0, Random.Range(yRotationRange.x, yRotationRange.y), 0);
-        _newPosition = new Vector3(xPos, 0, zPos);
+        _newPosition = new Vector3(xPos, yPos, 0);
     }
 }
