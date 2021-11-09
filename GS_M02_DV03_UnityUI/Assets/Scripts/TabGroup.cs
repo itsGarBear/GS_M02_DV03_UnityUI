@@ -7,11 +7,17 @@ public class TabGroup : MonoBehaviour
 {
     public List<TabButton> tabButtons;
 
-    public Sprite tabIdle;
-    public Sprite tabHover;
-    public Sprite tabActive;
+    //public Sprite tabIdle;
+    //public Sprite tabHover;
+    //public Sprite tabActive;
+
+    public Color tabIdle;
+    public Color tabHover;
+    public Color tabActive;
 
     public TabButton selectedTab;
+
+    public PanelGroup panelGroup;
 
     public List<GameObject> objectsToSwap;
 
@@ -30,7 +36,7 @@ public class TabGroup : MonoBehaviour
         ResetTabs();
 
         if(selectedTab == null || button != selectedTab)
-            button.background.sprite = tabHover;
+            button.background.color = tabHover;
     }
 
     public void OnTabExit(TabButton button)
@@ -41,17 +47,12 @@ public class TabGroup : MonoBehaviour
 
     public void OnTabSelected(TabButton button)
     {
-        if(selectedTab != null)
-        {
-            selectedTab.Deselect();
-        }
-
         selectedTab = button;
 
         selectedTab.Select();
 
         ResetTabs();
-        button.background.sprite = tabActive;
+        button.background.color = tabActive;
 
         int ndx = button.transform.GetSiblingIndex();
 
@@ -66,6 +67,13 @@ public class TabGroup : MonoBehaviour
                 objectsToSwap[i].SetActive(false);
             }
         }
+
+        if(panelGroup != null)
+        {
+            panelGroup.SetPageIndex(selectedTab.transform.GetSiblingIndex());
+        }
+
+
     }
 
     public void ResetTabs()
@@ -73,7 +81,7 @@ public class TabGroup : MonoBehaviour
         foreach(TabButton button in tabButtons)
         {
             if (selectedTab != null && button == selectedTab) continue;
-            button.background.sprite = tabIdle;
+            button.background.color = tabIdle;
         }
     }
 }
